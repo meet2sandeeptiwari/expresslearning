@@ -1,20 +1,24 @@
-import express from 'express'
-import { home} from "./page/home.js"
-import { about } from './page/about.js';
-import { contact } from './page/contact.js';
+import express from "express";
+const app = express();
+import path from "path";
 
-const app=express();
+import { absolutepath, publicpath } from "./page/abspath.js";
 
-app.get("", (req,resp)=>{
-    resp.send(home());
+
+app.use(express.static(publicpath));
+app.get("/", (req, resp) => {
+  resp.sendFile(absolutepath+"/home.html");
 });
-app.get("/about", (req,resp)=>{
-    resp.send(about())
-});
-
-app.get("/contact", (req,resp)=>{
-    resp.send(contact())
+app.get("/login", (req, resp) => {
+  resp.sendFile(absolutepath+"/login.html");
 });
 
+app.post("/submit", (req, resp) => {
+  resp.sendFile(absolutepath+"/submit.html");
+});
+
+app.use((req, resp) => {
+  resp.sendFile(absolutepath+"/404.html");
+});
 
 app.listen(3200);
