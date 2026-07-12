@@ -1,16 +1,19 @@
-const express=require("express");
+import express from 'express'
+import { home} from "./page/home.js"
+import { about } from './page/about.js';
+import { contact } from './page/contact.js';
 
 const app=express();
 
 app.get("", (req,resp)=>{
-    resp.send("<h1>Basic node js example</h1>")
+    resp.send(home());
 });
 app.get("/about", (req,resp)=>{
-    resp.send("<h1>This is about page .</h1>")
+    resp.send(about())
 });
 
 app.get("/contact", (req,resp)=>{
-    resp.send("<h1>This is contact page</h1>")
+    resp.send(contact())
 });
 
 
