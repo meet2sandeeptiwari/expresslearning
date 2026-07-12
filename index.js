@@ -1,6 +1,7 @@
 import express from "express";
 const app = express();
 
+//middelware example1
 // function agecheck(req, resp, next){
 //     if(!req.query.age || req.query.age<18){
 //         resp.send("alert! you can not access this page");
@@ -10,7 +11,7 @@ const app = express();
 // }
 // app.use(agecheck);
 
-
+//middelware example2
 function ipcheck(req, resp, next){
     const ip=req.socket.remoteAddress
     console.log(ip);
@@ -21,6 +22,7 @@ function ipcheck(req, resp, next){
     }
 }
 app.use(ipcheck);
+
 
 app.get("/", (req, resp) => {
   resp.send("this is home page");
