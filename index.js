@@ -1,39 +1,31 @@
 import express from "express";
+import path from "path";
 const app = express();
 
-//middelware example1
-// function agecheck(req, resp, next){
-//     if(!req.query.age || req.query.age<18){
-//         resp.send("alert! you can not access this page");
-//     }else{
-//         next();
-//     }
-// }
-// app.use(agecheck);
 
-//middelware example2
-function ipcheck(req, resp, next){
-    const ip=req.socket.remoteAddress
-    console.log(ip);
-    if(!ip.includes('192.168.1.6')){
-        resp.send("alert! you can not access this page")
-    }else{
-        next();
-    }
-}
-app.use(ipcheck);
+app.use(express.urlencoded({extended:false}));
 
+app.use(express.static("public"));
+
+const absolutepat=path.resolve("view");
 
 app.get("/", (req, resp) => {
-  resp.send("this is home page");
+  resp.sendFile(absolutepat+"/home.html");
 });
+
 
 app.get("/login", (req, resp) => {
-  resp.send("this is login page");
+  resp.sendFile(absolutepat+"/login.html");
 });
 
-app.get("/admin", (req, resp) => {
-  resp.send("this is admin page");
+
+app.post("/submit", (req, resp) => {
+    console.log("users login details ", req.body);
+  resp.sendFile(absolutepat+"/submit.html");
+});
+
+app.get("/users", (req, resp) => {
+  resp.sendFile(absolutepat+"/users.html");
 });
 
 app.listen(3200);
